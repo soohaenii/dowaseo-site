@@ -111,7 +111,7 @@ a.cue span[aria-hidden]{animation:bob 1.6s ease-in-out infinite}
 <span style="font-weight: 700; font-size: 18px; letter-spacing: 0.14em">DOWASEO</span>
 <span style="font-size: 14px; color: #6B6B66">도와서</span>
 </a>
-<a class="pill" href="https://coomooz.com" style="text-decoration: none; background: #161616; color: #F7F2EA; font-family: 'IBM Plex Sans KR', sans-serif; font-size: 14px; font-weight: 500; padding: 12px 20px; border-radius: 999px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; gap: 8px">COOMOOZ 보러 가기 <span aria-hidden="true">↗</span></a>
+<a class="pill" href="https://coomooz.com" target="_blank" rel="noopener noreferrer" style="text-decoration: none; background: #161616; color: #F7F2EA; font-family: 'IBM Plex Sans KR', sans-serif; font-size: 14px; font-weight: 500; padding: 12px 20px; border-radius: 999px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; gap: 8px">COOMOOZ 보러 가기 <span aria-hidden="true">↗</span></a>
 </header>
 
 <section id="top" style="position: relative; box-sizing: border-box; min-height: calc(min(100vh, 960px) - 92px); display: flex; flex-wrap: wrap; align-content: center; align-items: flex-end; gap: 48px clamp(32px, 6vw, 96px); padding: 48px 0 112px">
@@ -122,7 +122,7 @@ a.cue span[aria-hidden]{animation:bob 1.6s ease-in-out infinite}
 <a class="cue" href="#coomooz" style="position: absolute; left: 0; bottom: 32px; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #6B6B66; display: inline-flex; align-items: center; gap: 8px; min-height: 44px">SCROLL <span aria-hidden="true">↓</span></a>
 </section>
 
-<a id="coomooz" data-reveal="card" class="card media" href="https://coomooz.com" style="text-decoration: none; color: #FFFFFF; position: relative; display: block; border-radius: 20px; overflow: hidden; height: clamp(440px, 52vw, 680px); background: #2A2724">
+<a id="coomooz" data-reveal="card" class="card media" href="https://coomooz.com" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: #FFFFFF; position: relative; display: block; border-radius: 20px; overflow: hidden; height: clamp(440px, 52vw, 680px); background: #2A2724">
 <img class="kb" src="assets/bedtime.jpg" alt="침대 위에서 아이가 COOMOOZ 손전등으로 동화책을 비추고, 옆에 COOMOOZ 스테이션 불빛이 켜져 있는 모습" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; filter: brightness(1.2)">
 <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(22, 20, 18, 0.62) 0%, rgba(22, 20, 18, 0.30) 38%, rgba(22, 20, 18, 0) 62%)"></div>
 <div style="position: relative; height: 100%; box-sizing: border-box; padding: clamp(28px, 4.5vw, 64px); display: flex; flex-direction: column; justify-content: space-between; gap: 24px; max-width: 560px">
@@ -246,7 +246,7 @@ a.cue span[aria-hidden]{animation:bob 1.6s ease-in-out infinite}
 </div>
 <div style="flex: 1 1 120px; min-width: 0; display: flex; flex-direction: column; gap: 4px">
 <h3 style="margin: 0 0 10px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.14em; color: #6B6B66">FOLLOW</h3>
-<a class="lk" href="https://coomooz.com">coomooz 공식몰</a>
+<a class="lk" href="https://coomooz.com" target="_blank" rel="noopener noreferrer">coomooz 공식몰</a>
 <a class="lk" href="https://www.instagram.com/coomooz/">instagram @coomooz</a>
 <a class="lk" href="https://www.youtube.com/@coomooz">youtube @coomooz</a>
 </div>
@@ -269,6 +269,28 @@ a.cue span[aria-hidden]{animation:bob 1.6s ease-in-out infinite}
     entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
   },{threshold:0.15});
   els.forEach(function(el){io.observe(el);});
+})();
+(function(){
+  var mailLink = document.querySelector('a[href^="mailto:"]');
+  if(!mailLink) return;
+  var toast = document.createElement('div');
+  toast.textContent = '이메일 주소가 복사되었습니다';
+  toast.setAttribute('role','status');
+  toast.style.cssText = 'position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(12px);background:#161616;color:#F7F2EA;font-family:"IBM Plex Sans KR",sans-serif;font-size:14px;font-weight:500;padding:12px 20px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:999';
+  document.body.appendChild(toast);
+  mailLink.addEventListener('click', function(){
+    var addr = 'info@dowaseo.com';
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(addr).catch(function(){});
+    }
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateX(-50%) translateY(0)';
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function(){
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(-50%) translateY(12px)';
+    }, 2200);
+  });
 })();
 </script>
 </body>
